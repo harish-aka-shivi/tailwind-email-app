@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Root from './containers/Root';
+import { AuthProvider } from './context/AuthContext';
+import { EmailCrudProvider } from './context/EmailCrudContext';
+import { ModalProvider } from './context/ModalContext';
+import { ModalDetailProvider } from './context/ModalDetailContext';
+import { NavBarProvider } from './context/navBarContext';
+import { PaneSelectedProvider } from './context/PaneSelectedContext';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export const App = () => (
+  <ModalProvider>
+    <PaneSelectedProvider>
+      <EmailCrudProvider>
+        <NavBarProvider>
+          <ModalDetailProvider>
+            <Root />
+          </ModalDetailProvider>
+        </NavBarProvider>
+      </EmailCrudProvider>
+    </PaneSelectedProvider>
+  </ModalProvider>
+);
 
-export default App;
+const AppWithAuth = () => (
+  <AuthProvider>
+    <App />
+  </AuthProvider>
+);
+
+export default AppWithAuth;
